@@ -1,0 +1,65 @@
+@baseUrl = http://localhost:5000
+
+### Users
+# Register a new user
+POST {{baseUrl}}/users/register
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "password": "password",
+  "role": "student"
+}
+
+###
+# Login as a user
+POST {{baseUrl}}/users/login
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "password": "password"
+}
+
+### Questions
+# Get all questions
+GET {{baseUrl}}/questions
+
+###
+# Add a new question
+POST {{baseUrl}}/questions/add
+Content-Type: application/json
+
+{
+  "questionText": "What is 2 + 2?",
+  "options": ["3", "4", "5"],
+  "correctAnswer": "4",
+  "teacher": "teacherId"
+}
+
+###
+# Delete a question
+DELETE {{baseUrl}}/questions/questionId
+
+### Tests
+# Start a new test
+POST {{baseUrl}}/tests/start
+Content-Type: application/json
+
+{
+  "studentId": "studentId"
+}
+
+###
+# Submit a test
+POST {{baseUrl}}/tests/submit
+Content-Type: application/json
+
+{
+  "testId": "testId",
+  "answers": ["4", "answer2"]
+}
+
+###
+# Get all tests for a student
+GET {{baseUrl}}/tests/studentId
