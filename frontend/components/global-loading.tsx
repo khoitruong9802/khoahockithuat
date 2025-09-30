@@ -1,9 +1,9 @@
 // components/GlobalLoading.tsx
-import { useLoadingStore } from "../store/useLoadingStore";
+import { useLoadingStore } from "@/store/loadingSlice";
 import { ActivityIndicator, View, StyleSheet } from "react-native";
 
 export default function GlobalLoading() {
-  const isLoading = useLoadingStore((state) => state.isLoading);
+  const { isLoading } = useLoadingStore();
 
   if (!isLoading) return null;
 
