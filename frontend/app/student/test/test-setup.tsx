@@ -5,6 +5,7 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import { useTestStore } from "@/store/testSlice";
 import { useRouter } from "expo-router";
 import { Picker } from "@react-native-picker/picker";
+import { useAppStore } from "@/store";
 
 export default function TestSetupScreen() {
   const [subjectId, setSubjectId] = useState("");
@@ -12,6 +13,7 @@ export default function TestSetupScreen() {
   const [subjects, setSubjects] = useState<any[]>([]);
   const router = useRouter();
   const startTest = useTestStore((state) => state.startTest);
+  const { grade } = useAppStore();
 
   useEffect(() => {
     const fetchSubjects = async () => {
@@ -30,7 +32,8 @@ export default function TestSetupScreen() {
 
     const q = query(
       collection(db, "questions"),
-      where("subjectId", "==", subjectId)
+      where("subjectId", "==", subjectId),
+      where("grade", "==", grade)
     );
     const snapshot = await getDocs(q);
     const allQuestions = snapshot.docs.map((doc) => ({

@@ -1,4 +1,11 @@
-import { View, Text, Pressable, Alert, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  Pressable,
+  Alert,
+  StyleSheet,
+  ScrollView,
+} from "react-native";
 import { useTestStore } from "@/store/testSlice";
 import { useAppStore } from "@/store";
 import { db } from "@/lib/firebase";
@@ -42,7 +49,10 @@ export default function TestScreen() {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
+      {/* Page Title */}
+      <Text style={styles.pageTitle}>Kiểm tra</Text>
+
       {questions.map((q, index) => (
         <View key={q.id} style={styles.questionBlock}>
           <Text style={styles.questionText}>
@@ -65,16 +75,25 @@ export default function TestScreen() {
           })}
         </View>
       ))}
+
       <Pressable style={styles.submitButton} onPress={handleSubmit}>
         <Text style={styles.submitText}>Nộp bài</Text>
       </Pressable>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     padding: 20,
+    paddingBottom: 50, // extra space for scrolling
+  },
+  pageTitle: {
+    fontSize: 24,
+    fontWeight: "700",
+    color: "#1E293B",
+    marginBottom: 20,
+    textAlign: "center",
   },
   questionBlock: {
     marginBottom: 30,

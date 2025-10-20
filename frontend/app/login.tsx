@@ -1,5 +1,13 @@
 import { useState } from "react";
-import { View, TextInput, Button, Text, StyleSheet } from "react-native";
+import {
+  View,
+  TextInput,
+  Button,
+  Text,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from "react-native";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../lib/firebase";
 import { useAppStore } from "../store";
@@ -27,9 +35,11 @@ export default function LoginScreen() {
       const user = userCredential.user;
 
       const userDoc = await getDoc(doc(db, "users", user.uid));
-      const role = userDoc.data()?.role;
+      const data = userDoc.data();
+      const role = data?.role || null;
+      const grade = data?.grade || null; // ✅ get grade from Firestore
 
-      setUser(user, role);
+      setUser(user, role, grade); // ✅ pass grade to your store
       setErrorMessage("");
 
       setLoading(false);
@@ -54,42 +64,42 @@ export default function LoginScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <Image
-        source={require("@/assets/images/login-logo.png")}
-        style={styles.logo}
-      />
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <View style={styles.container}>
+        <Image
+          source={require("@/assets/images/login-logo.png")}
+          style={styles.logo}
+        />
 
-      <Text style={styles.label}>Email</Text>
-      <TextInput
-        style={styles.input}
-        value={email}
-        onChangeText={setEmail}
-        placeholder="Nhập email"
-        keyboardType="email-address"
-      />
+        <Text style={styles.label}>Email</Text>
+        <TextInput
+          style={styles.input}
+          value={email}
+          onChangeText={setEmail}
+          placeholder="Nhập email"
+          keyboardType="email-address"
+        />
 
-      {/* Password */}
-      <Text style={styles.label}>Mật khẩu</Text>
-      <TextInput
-        style={styles.input}
-        value={password}
-        onChangeText={setPassword}
-        placeholder="Nhập mật khẩu"
-        secureTextEntry
-      />
+        <Text style={styles.label}>Mật khẩu</Text>
+        <TextInput
+          style={styles.input}
+          value={password}
+          onChangeText={setPassword}
+          placeholder="Nhập mật khẩu"
+          secureTextEntry
+        />
 
-      <View style={styles.buttonContainer}>
-        <Button title="Đăng nhập" onPress={handleLogin} />
+        <View style={styles.buttonContainer}>
+          <Button title="Đăng nhập" onPress={handleLogin} />
+        </View>
+
+        <Link style={styles.link} href={"/signup"}>
+          Tạo tài khoản mới
+        </Link>
+
+        {errorMessage && <Text style={styles.errorText}>{errorMessage}</Text>}
       </View>
-
-      <Link style={styles.link} href={"/signup"}>
-        Tạo tài khoản mới
-      </Link>
-
-      {/* Error Message */}
-      {errorMessage && <Text style={styles.errorText}>{errorMessage}</Text>}
-    </View>
+    </TouchableWithoutFeedback>
   );
 }
 

@@ -65,9 +65,7 @@ export default function TeacherResultsScreen() {
 
   return (
     <View style={{ padding: 20 }}>
-      <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-        Student Test Results
-      </Text>
+      <Text style={{ fontSize: 20, fontWeight: "bold" }}>Kết quả làm bài</Text>
       <FlatList
         data={results}
         keyExtractor={(item) => item.id}

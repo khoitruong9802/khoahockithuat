@@ -1,4 +1,4 @@
-@baseUrl = http://localhost:5000
+@baseUrl = http://localhost:3000
 
 ### Users
 # Register a new user
@@ -63,3 +63,15 @@ Content-Type: application/json
 ###
 # Get all tests for a student
 GET {{baseUrl}}/tests/studentId
+
+###
+# Get all tests for chat bot
+POST {{baseUrl}}/api/chat
+Content-Type: application/json
+
+{
+    "message": "http protocol説明してください",
+    "sessionId": null 
+    // You can omit the "sessionId" key completely for the first message, 
+    // or set it to null, and the backend will create one.
+}
