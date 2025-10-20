@@ -31,6 +31,7 @@
 // server.js
 import express from "express";
 import dotenv from "dotenv";
+import { v4 as uuidv4 } from "uuid";
 import { GoogleGenAI } from "@google/genai";
 
 // Load environment variables from .env file
@@ -73,7 +74,7 @@ app.post("/api/chat", async (req, res) => {
     });
 
     // Use a unique ID (UUID) for a new session
-    const newSessionId = sessionId || crypto.randomUUID();
+    const newSessionId = sessionId || uuidv4();
     chatSessions.set(newSessionId, session);
     req.body.sessionId = newSessionId; // Update the ID for the response
   }
