@@ -33,7 +33,8 @@ const ChatScreen = () => {
   // --- Configuration ---
   // **IMPORTANT:** Replace 'YOUR_LOCAL_IP' with your actual local IP address
   // (e.g., '192.168.1.10:3000').
-  const CHAT_API_URL = "http://34.1.207.181:80/api/chat";
+  const CHAT_API_URL =
+    "https://khoahockithuat-136146701693.asia-southeast1.run.app/api/chat";
   // -----------------------
 
   // Function to handle sending a message

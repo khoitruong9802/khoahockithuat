@@ -1,4 +1,5 @@
 @baseUrl = http://localhost:3000
+@prdUrl = http://34.1.207.181:80
 
 ### Users
 # Register a new user
@@ -66,7 +67,7 @@ GET {{baseUrl}}/tests/studentId
 
 ###
 # Get all tests for chat bot
-POST {{baseUrl}}/api/chat
+POST {{prdUrl}}/api/chat
 Content-Type: application/json
 
 {
@@ -74,4 +75,14 @@ Content-Type: application/json
     "sessionId": null 
     // You can omit the "sessionId" key completely for the first message, 
     // or set it to null, and the backend will create one.
+}
+
+###
+# Get all tests for chat bot
+POST https://khoahockithuat-136146701693.asia-southeast1.run.app/api/chat
+Content-Type: application/json
+
+{
+    "message": "http protocol説明してください",
+    "sessionId": null 
 }
